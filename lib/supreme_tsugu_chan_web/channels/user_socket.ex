@@ -6,7 +6,7 @@ defmodule SupremeTsuguChanWeb.UserSocket do
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket,
-    serializer: [{SupremeTsuguChanWeb.Transorts.V2.MessagePackSerializer, "~> 2.0.0"}]
+    serializer: [{SupremeTsuguChanWeb.Transports.V2.MessagePackSerializer, "~> 2.0.0"}]
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
