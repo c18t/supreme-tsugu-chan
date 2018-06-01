@@ -2,10 +2,11 @@ defmodule SupremeTsuguChanWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", SupremeTsuguChanWeb.RoomChannel
+  channel "supreme:*", SupremeTsuguChanWeb.SupremeChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket,
+    serializer: [{SupremeTsuguChanWeb.Transorts.V2.MessagePackSerializer, "~> 2.0.0"}]
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
