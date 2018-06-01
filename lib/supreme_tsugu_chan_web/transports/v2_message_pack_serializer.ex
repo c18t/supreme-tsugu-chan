@@ -11,17 +11,17 @@ defmodule SupremeTsuguChanWeb.Transports.V2.MessagePackSerializer do
     @gzip_threshold 1024
   
     def fastlane!(%Broadcast{} = msg) do
-      {:socket_push, :binary, pack_data({ nil, nil, msg.topic, msg.event, msg.payload })}
+      {:socket_push, :binary, pack_data([ nil, nil, msg.topic, msg.event, msg.payload ])}
     end
 
     def encode!(%Reply{} = reply) do
-      {:socket_push, :binary, pack_data({
+      {:socket_push, :binary, pack_data([
         reply.join_ref,
         reply.ref,
         reply.topic,
         "phx_reply",
         %{status: reply.status, response: reply.payload}
-      })}
+      ])}
     end
   
     def encode!(%Message{} = msg) do
@@ -50,4 +50,4 @@ defmodule SupremeTsuguChanWeb.Transports.V2.MessagePackSerializer do
   
     defp gzip_data(data, size) when size < @gzip_threshold, do: data
     defp gzip_data(data, _size), do: :zlib.gzip(data)
-  end  
+  end
