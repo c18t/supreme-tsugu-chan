@@ -5,6 +5,17 @@
 # is restricted to this project.
 use Mix.Config
 
+# App setting
+config :supreme_tsugu_chan,
+  cache_dir: System.get_env("CACHE_DIR"),
+  tumblr_url: System.get_env("TUMBLR_URL"),
+  tumblr_credentials: [
+    consumer_key: System.get_env("CONSUMER_KEY"),
+    consumer_secret: System.get_env("CONSUMER_SECRET"),
+    token: System.get_env("TOKEN"),
+    token_secret: System.get_env("TOKEN_SECRET")
+  ]
+
 # Configures the endpoint
 config :supreme_tsugu_chan, SupremeTsuguChanWeb.Endpoint,
   url: [host: "localhost"],
@@ -21,10 +32,8 @@ config :supreme_tsugu_chan, SupremeTsuguChanWeb.Scheduler,
     # Every minute
 #    {"* * * * *",      {SupremeTsuguChanWeb.Jobs.SearchTwitterHashTag, :send, []}},
     # Every 15 minutes
-    {"*/15 * * * *",   {SupremeTsuguChanWeb.Jobs.GetTumblrPostList, :get_list, []}},
-  ],
-  # App setting
-  cache_dir: "."
+    {"* * * * *",   {SupremeTsuguChanWeb.Jobs.GetTumblrPostList, :get_list, []}},
+  ]
 
 config :quantum,
   timezone: "Asia/Tokyo" # デフォルトUTCなので設定ここで変更する

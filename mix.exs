@@ -43,7 +43,7 @@ defmodule SupremeTsuguChan.Mixfile do
       {:quantum, "~> 2.2"},
       {:timex, "~> 3.0"},
       {:oauther, "~> 1.1"},
-      {:hackney, "~> 1.12"}
+      {:httpoison, "~> 1.1"}
     ]
   end
 end
