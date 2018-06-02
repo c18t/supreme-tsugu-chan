@@ -39,7 +39,11 @@ defmodule SupremeTsuguChan.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:distillery, "~> 1.5", runtime: false},
-      {:msgpax, "~> 2.0"}
+      {:msgpax, "~> 2.0"},
+      {:quantum, "~> 2.2"},
+      {:timex, "~> 3.0"},
+      {:oauther, "~> 1.1"},
+      {:hackney, "~> 1.12"}
     ]
   end
 end

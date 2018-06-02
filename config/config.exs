@@ -13,6 +13,22 @@ config :supreme_tsugu_chan, SupremeTsuguChanWeb.Endpoint,
   pubsub: [name: SupremeTsuguChan.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+# Configures scheduler setting
+config :supreme_tsugu_chan, SupremeTsuguChanWeb.Scheduler,
+  # Quantum setting
+  timeout: 60_000, # ms
+  jobs: [
+    # Every minute
+#    {"* * * * *",      {SupremeTsuguChanWeb.Jobs.SearchTwitterHashTag, :send, []}},
+    # Every 15 minutes
+    {"*/15 * * * *",   {SupremeTsuguChanWeb.Jobs.GetTumblrPostList, :get_list, []}},
+  ],
+  # App setting
+  cache_dir: "."
+
+config :quantum,
+  timezone: "Asia/Tokyo" # デフォルトUTCなので設定ここで変更する
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
