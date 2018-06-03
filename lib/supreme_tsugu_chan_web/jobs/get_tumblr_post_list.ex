@@ -25,13 +25,29 @@ defmodule SupremeTsuguChanWeb.Jobs.GetTumblrPostList do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         Logger.info body
+        Poison.decode!(body)["response"] |> fetch_post_item
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         Logger.warn "Not found :("
       {:ok, %HTTPoison.Response{status_code: 403}} ->
         Logger.warn "Forbidden :("
+      {:ok, %HTTPoison.Response{status_code: 401}} ->
+        Logger.warn "Unauthorized :("
       {:error, %HTTPoison.Error{reason: reason}} ->
         Logger.warn reason
     end
+  end
+
+  defp fetch_post_item(data) do
+    fetch_post_item_recursive(data["posts"])
+  end
+
+  defp fetch_post_item_recursive([head|tail]) do
+    Logger.info "id: #{head["id"]}, short_url: #{head["short_url"]}"
+    fetch_post_item_recursive(tail)
+  end
+
+  defp fetch_post_item_recursive([]) do
+    :ok
   end
 
 end
